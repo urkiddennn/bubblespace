@@ -1,0 +1,85 @@
+---
+
+---
+
+<div
+  class="w-full flex justify-center items-center flex-col gap-5 text-center mt-16 selection:bg-purple-500/30"
+>
+  <!-- Logo -->
+  <div class="relative w-46 h-46 mb-2">
+    <img
+      src="/bubblespace.svg"
+      alt="Bubblespace Logo"
+      class="w-full h-full object-contain drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] animate-pulse animate-duration-[2000ms] animate-ease-in-out"
+    />
+  </div>
+
+  <!-- Title -->
+  <div class="relative inline-block mt-4">
+    <h1
+      class="text-[5rem] md:text-[6rem] lg:text-[7.5rem] font-bold tracking-tight text-[#e2e8f0] leading-none mb-2"
+    >
+      Bubblespace
+    </h1>
+  </div>
+
+  <p class="text-[1.15rem] text-[#94a3b8] max-w-2xl font-normal mt-4">
+    A brand new simple and fun icon pack for your digital life
+  </p>
+
+  <div class="flex flex-col sm:flex-row gap-5 mt-10 w-full justify-center px-4">
+    <!-- Download Button -->
+    <a
+      href="/start"
+      class="group flex items-center justify-center gap-3 bg-[#2b3040]/80 hover:bg-[#343a4d] border border-white/10 text-[#f1f5f9] px-10 py-4 rounded-3xl font-medium transition-all shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
+    >
+      <svg
+        class="w-5 h-5 text-[#94a3b8] group-hover:text-white transition-colors"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M8 12l4 4 4-4"></path>
+        <path d="M12 8v8"></path>
+      </svg>
+      Download
+    </a>
+
+    <!-- Premium / Full Icons Button -->
+    <a
+      href="/premium"
+      class="group relative flex items-center justify-center gap-3 bg-linear-to-r from-[#44b09e] via-[#4d88db] to-[#be5b8f] text-white px-10 py-4 rounded-3xl font-medium transition-all shadow-[0_10px_30px_rgba(190,91,143,0.3)] hover:shadow-[0_10px_40px_rgba(190,91,143,0.5)] overflow-hidden"
+    >
+      <!-- Glow effect on hover -->
+      <div
+        class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"
+      >
+      </div>
+
+      <svg
+        class="w-5 h-5 relative z-10"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M6 3h12l4 6-10 12L2 9l4-6z"></path>
+        <path d="M2 9h20"></path>
+        <path d="M12 21V9"></path>
+        <path d="M18 3l-6 6"></path>
+        <path d="M6 3l6 6"></path>
+      </svg>
+      <span class="relative z-10">Get Full Version</span>
+    </a>
+  </div>
+</div>
