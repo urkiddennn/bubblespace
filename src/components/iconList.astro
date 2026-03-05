@@ -11,18 +11,55 @@ const iconPaths = Object.keys(iconImports);
 <div
     class="w-full flex flex-col items-center justify-center gap-6 mt-32 mb-32 px-4 selection:bg-purple-500/30"
 >
-    <div class="text-center space-y-4 mb-10">
+    <div class="text-center space-y-4 mb-10 w-full max-w-2xl">
         <h2 class="text-4xl md:text-5xl font-bold text-white tracking-tight">
             Beautifully Crafted
         </h2>
-        <p class="text-lg text-[#94a3b8] max-w-2xl mx-auto">
+        <p class="text-lg text-[#94a3b8]">
             Explore the full suite of gorgeous, meticulously designed premium
             icons for modern applications.
         </p>
+
+        <div class="pt-8 flex flex-col items-center gap-4">
+            <div class="relative w-full group">
+                <div
+                    class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+                >
+                    <svg
+                        class="w-5 h-5 text-[#94a3b8] group-focus-within:text-purple-400 transition-colors"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        ></path>
+                    </svg>
+                </div>
+                <input
+                    type="text"
+                    id="iconSearch"
+                    placeholder="Search icons..."
+                    class="w-full bg-[#1A1E26]/50 border border-white/5 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-[#94a3b8] focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300 backdrop-blur-md"
+                />
+            </div>
+            <div
+                class="flex items-center gap-2 text-sm text-[#94a3b8] font-medium"
+            >
+                <span id="showingCount" class="text-purple-400">0</span>
+                <span>/</span>
+                <span id="totalCount">{iconPaths.length}</span>
+                <span>icons</span>
+            </div>
+        </div>
     </div>
 
     <div
-        class="grid grid-cols-2 shadow-[0_0_60px_rgba(0,0,0,0.1)] sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 w-full max-w-6xl mx-auto"
+        id="iconGrid"
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 w-full max-w-6xl mx-auto"
     >
         {
             iconPaths.map((path) => {
@@ -32,7 +69,10 @@ const iconPaths = Object.keys(iconImports);
                         .pop()
                         ?.replace(/\.(png|svg)$/, "") || "";
                 return (
-                    <div class="group flex flex-col items-center justify-center gap-4 p-5 rounded-3xl bg-[#252A36]/30 backdrop-blur-sm border border-white/5 hover:border-white/10 transition-all duration-500 hover:bg-[#2A303D]/60 hover:shadow-[0_10px_30px_rgba(0,0,0,0.3)]">
+                    <div
+                        class="icon-card group flex flex-col items-center justify-center gap-4 p-5 rounded-3xl bg-[#252A36]/30 backdrop-blur-sm border border-white/5 hover:border-white/10 transition-all duration-500 hover:bg-[#2A303D]/60 hover:shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+                        data-name={fileName.toLowerCase()}
+                    >
                         <div class="relative w-10 h-10 flex items-center justify-center">
                             <Image
                                 src={iconImports[path]()}
@@ -55,3 +95,54 @@ const iconPaths = Object.keys(iconImports);
         }
     </div>
 </div>
+
+<script>
+    const searchInput = document.getElementById(
+        "iconSearch",
+    ) as HTMLInputElement;
+    const iconCards = document.querySelectorAll(
+        ".icon-card",
+    ) as NodeListOf<HTMLElement>;
+    const showingCount = document.getElementById("showingCount");
+    const totalCount = document.getElementById("totalCount");
+
+    function updateCounts() {
+        if (showingCount && iconCards) {
+            const visibleCount = Array.from(iconCards).filter(
+                (card) => card.style.display !== "none",
+            ).length;
+            showingCount.textContent = visibleCount.toString();
+        }
+    }
+
+    // Initialize counts
+    updateCounts();
+
+    searchInput?.addEventListener("input", (e) => {
+        const query = (e.target as HTMLInputElement).value.toLowerCase();
+
+        iconCards.forEach((card) => {
+            const name = card.getAttribute("data-name") || "";
+            if (name.includes(query)) {
+                card.style.display = "flex";
+                card.style.opacity = "1";
+                card.style.transform = "scale(1)";
+            } else {
+                card.style.display = "none";
+                card.style.opacity = "0";
+                card.style.transform = "scale(0.95)";
+            }
+        });
+
+        updateCounts();
+    });
+</script>
+
+<style>
+    .icon-card {
+        transition:
+            opacity 0.3s ease,
+            transform 0.3s ease,
+            display 0.3s ease allow-discrete;
+    }
+</style>
